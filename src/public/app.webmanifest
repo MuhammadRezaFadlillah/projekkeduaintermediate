@@ -1,0 +1,35 @@
+{
+  "id": "/#/",
+  "start_url": "/#/",
+  "scope": "/",
+  "name": "AplikasiStoryReza",
+  "short_name": "AplikasiStory",
+  "description": "Aplikasi sosial media khusus untuk murid dicoding",
+  "display": "standalone",
+  "background_color": "#FFFFFF",
+  "theme_color": "#C599B6",
+  "icons": [
+    {
+        "src": "images/logo.png",
+        "type": "image/png",
+        "sizes": "144x144",
+        "purpose": "any"
+    }
+  ],
+
+  "shortcuts": [
+    {
+      "name": "Story Baru",
+      "short_name": "Baru",
+      "description": "Membuat story baru.",
+      "url": "/?source=pwa#/new",
+      "icons": [
+        {
+          "src": "images/icons/add-x512.png",
+          "type": "image/png",
+          "sizes": "512x512"
+        }
+      ]
+    }
+  ]
+}

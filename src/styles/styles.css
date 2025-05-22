@@ -1,0 +1,950 @@
+/* GLOBAL STYLES & RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  /* Primary Colors (Earthy & Calm) */
+  --primary-color: #4CAF50; /* Hijau daun */
+  --primary-text-color: #F8F8F8; /* Hampir putih */
+  --primary-hover-color: #66BB6A; /* Hijau lebih terang */
+  --primary-shadow-color: rgba(76, 175, 80, 0.3); /* Bayangan hijau transparan */
+
+  /* Secondary Colors (Neutral & Warm) */
+  --secondary-color: #FFC107; /* Kuning cerah */
+  --secondary-text-color: #333333; /* Abu-abu gelap */
+
+  /* Font Families */
+  --font-family-base: 'Open Sans', sans-serif; /* Font bersih dan modern */
+  --font-family-inter: 'Roboto', sans-serif; /* Font pelengkap yang dapat dibaca */
+
+  /* Spacing & Borders */
+  --spacing-unit: 8px;
+  --border-radius-base: 6px;
+  --box-shadow-light: 0 2px 10px rgba(0, 0, 0, 0.05);
+  --box-shadow-medium: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+body {
+  font-family: var(--font-family-base);
+  line-height: 1.7; /* Sedikit lebih tinggi untuk keterbacaan */
+  color: var(--secondary-text-color);
+  background-color: #F9F9F9; /* Background yang lebih terang */
+}
+
+/* SKIP LINK FOR ACCESSIBILITY */
+.skip-link {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: var(--primary-color);
+  padding: var(--spacing-unit) calc(var(--spacing-unit) * 2);
+  color: var(--primary-text-color);
+  font-size: 0.95rem;
+  font-weight: 700;
+  transform: translateY(-150%);
+  z-index: 10000;
+  transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* Transisi lebih halus */
+}
+
+.skip-link:focus,
+.skip-link:focus-within {
+  transform: translateY(0%);
+}
+
+/* GENERAL LAYOUT & COMPONENTS */
+.container {
+  max-width: 1200px; /* Lebar container sedikit dikurangi */
+  margin-inline: auto;
+  padding-inline: calc(var(--spacing-unit) * 2);
+}
+
+a,
+button {
+  min-height: 48px; /* Ukuran sentuh yang lebih besar */
+  min-width: 48px;
+  color: var(--primary-color);
+  outline-offset: 4px; /* Offset untuk fokus */
+}
+
+input,
+textarea,
+select {
+  width: 100%;
+  padding: 12px 15px; /* Padding sedikit lebih besar */
+  border-radius: var(--border-radius-base);
+  border: 1px solid #D1D1D1; /* Warna border yang lebih terang */
+  font-size: 1rem;
+  font-family: var(--font-family-inter);
+  transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+input {
+    min-height: 48px;
+}
+
+textarea {
+  min-height: 160px;
+  resize: vertical;
+}
+
+select {
+  display: inline-block;
+  padding-block: 10px;
+  padding-inline: 15px 25px;
+  line-height: 1.5;
+  box-shadow: var(--box-shadow-light); /* Shadow yang lebih lembut */
+}
+
+/* BUTTONS */
+.btn {
+  width: 100%;
+  padding: 12px 24px;
+  border: 1px solid var(--primary-color);
+  border-radius: var(--border-radius-base);
+  background-color: var(--primary-color);
+  
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-unit);
+
+  text-decoration: none;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--primary-text-color) !important;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Tambahkan shadow awal */
+}
+
+.btn:hover {
+  background-color: var(--primary-hover-color);
+  border-color: var(--primary-hover-color);
+  transform: translateY(-3px); /* Efek angkat yang lebih jelas */
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2); /* Shadow yang lebih kuat saat hover */
+}
+
+.btn[disabled] {
+  background-color: #BDBDBD; /* Abu-abu yang jelas untuk disabled */
+  border-color: #BDBDBD;
+  cursor: not-allowed;
+  opacity: 0.7;
+  transform: none;
+  box-shadow: none;
+}
+
+.btn.btn-outline {
+  background-color: transparent;
+  color: var(--primary-color) !important;
+  border: 2px solid var(--primary-color); /* Border lebih tebal */
+  box-shadow: none; /* Hapus shadow awal untuk outline */
+}
+
+.btn.btn-outline:hover {
+  background-color: var(--primary-color);
+  color: var(--primary-text-color) !important;
+  border-color: var(--primary-color);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); /* Shadow saat hover untuk outline */
+}
+
+.btn.btn-transparent:hover {
+    background-color: rgba(var(--primary-color), 0.1); /* Transparan saat hover */
+    color: var(--primary-color) !important;
+}
+
+/* FOCUS STYLES (ACCESSIBILITY) */
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible,
+.btn:focus-visible {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 4px;
+  box-shadow: 0 0 0 6px var(--primary-shadow-color);
+}
+
+/* FORM LAYOUT */
+form > .form-control:not([hidden]) ~ .form-control:not([hidden]) {
+  margin-block-start: calc(var(--spacing-unit) * 4);
+}
+
+form .form-control > :not([hidden]) ~ :not([hidden]) {
+  margin-block-start: calc(var(--spacing-unit) * 1.5);
+}
+
+form .form-buttons {
+  margin-block-start: calc(var(--spacing-unit) * 4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-unit) * 1.5; /* Gap sedikit lebih besar */
+  flex-wrap: wrap;
+}
+
+/* LOADERS & ANIMATIONS */
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.loader {
+  text-align: center;
+  padding: calc(var(--spacing-unit) * 5) 0; /* Padding lebih banyak */
+}
+
+.loader::after {
+  content: '';
+  display: inline-block;
+  box-sizing: border-box;
+  width: 60px;
+  height: 60px;
+  border: 7px solid #e0e0e0; /* Border lebih tebal */
+  border-bottom-color: var(--primary-color);
+  border-radius: 100%;
+  animation: rotation 1s linear infinite;
+}
+
+.loader.loader-absolute::after {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+}
+
+i.loader-button {
+  animation: rotation 1s linear infinite;
+}
+
+/* HEADER */
+header {
+  background-color: var(--primary-color);
+  position: sticky;
+  top: 0;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25); /* Shadow yang lebih kuat */
+  z-index: 9999;
+  view-transition-name: header;
+}
+
+.main-header {
+  min-height: 80px; /* Tinggi header sedikit dikurangi */
+  padding-block: calc(var(--spacing-unit) * 2);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: calc(var(--spacing-unit) * 4);
+}
+
+.brand-name__link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-unit);
+  font-size: 1.3rem; /* Ukuran font brand lebih besar */
+  font-weight: bold;
+  text-decoration: none;
+  color: var(--primary-text-color);
+}
+
+/* NAVIGATION DRAWER (MOBILE/TABLET) */
+.navigation-drawer {
+  min-height: 100vh;
+  width: 260px; /* Lebar drawer sedikit lebih besar */
+  padding: calc(var(--spacing-unit) * 3);
+  background-color: var(--primary-text-color);
+  position: fixed;
+  top: 0;
+  left: 0;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.2); /* Shadow di sisi kanan */
+  transform: translateX(-100%);
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1); /* Transisi Material Design */
+  z-index: 9999;
+}
+
+.navigation-drawer.open {
+  transform: translateX(0);
+}
+
+.drawer-button {
+  padding: var(--spacing-unit) * 1.5;
+  border: none;
+  border-radius: var(--border-radius-base);
+  background-color: transparent;
+  font-weight: bold;
+  font-size: 30px; /* Ukuran ikon tombol drawer lebih besar */
+  color: var(--primary-text-color);
+  cursor: pointer;
+  transition: transform 0.2s ease-out;
+}
+
+.drawer-button:hover {
+    transform: scale(1.1);
+}
+
+.nav-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--spacing-unit) * 1.5);
+}
+
+.nav-list li a,
+.nav-list li button {
+  width: 100%;
+  padding: var(--spacing-unit) * 1.5;
+  color: var(--secondary-text-color); /* Warna teks di drawer */
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-unit);
+  text-decoration: none;
+  border-radius: var(--border-radius-base);
+  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+}
+
+.nav-list li a:hover,
+.nav-list li button:hover {
+  background-color: rgba(var(--primary-color), 0.1); /* Background hover transparan */
+  color: var(--primary-color); /* Teks jadi primary color saat hover */
+  text-shadow: none;
+}
+
+.logout-button {
+  background-color: #E57373; /* Warna merah muda untuk logout */
+  border-radius: var(--border-radius-base);
+  color: var(--primary-text-color) !important;
+  font-weight: 600;
+  border: none;
+  margin-top: calc(var(--spacing-unit) * 3);
+  transition: background-color 0.2s ease-in-out;
+}
+
+.logout-button:hover {
+  background-color: #EF5350; /* Merah lebih gelap saat hover */
+}
+
+/* MAIN CONTENT */
+.main-content {
+  min-height: 70vh;
+  padding-top: calc(var(--spacing-unit) * 5);
+  padding-bottom: calc(var(--spacing-unit) * 5);
+}
+
+.main-content > :not([hidden]) ~ :not([hidden]) {
+  margin-block-start: calc(var(--spacing-unit) * 4);
+}
+
+.main-content .section-title {
+  text-align: center;
+  font-size: 2.8rem;
+  padding-block: calc(var(--spacing-unit) * 6) calc(var(--spacing-unit) * 5);
+  color: var(--primary-color);
+  font-weight: 700;
+}
+
+/* LOGIN & REGISTER PAGES */
+.register-form-container,
+.login-form-container {
+  max-width: 420px; /* Lebar form sedikit lebih besar */
+  margin-inline: auto;
+  min-height: calc(100vh - 80px); /* Menyesuaikan tinggi header baru */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: calc(var(--spacing-unit) * 2);
+}
+
+.register__title,
+.login__title {
+  text-align: center;
+  margin-block: calc(var(--spacing-unit) * 4) calc(var(--spacing-unit) * 3);
+  color: var(--primary-color);
+  font-size: 2.2rem; /* Ukuran judul form lebih besar */
+  font-weight: 700;
+}
+
+.register-form,
+.login-form {
+  border-radius: var(--border-radius-base);
+  padding: calc(var(--spacing-unit) * 4);
+  background-color: #fff;
+  box-shadow: var(--box-shadow-medium);
+}
+
+.register-form__form-buttons,
+.login-form__form-buttons {
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.register-form__already-have-account,
+.login-form__do-not-have-account {
+  text-align: center;
+  margin-top: calc(var(--spacing-unit) * 2.5);
+  font-size: 0.95rem;
+  color: #666;
+}
+
+/* HOME PAGE STORIES LIST */
+.stories-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); /* Ukuran kartu lebih fleksibel */
+  gap: calc(var(--spacing-unit) * 3);
+  padding-block: calc(var(--spacing-unit) * 4);
+}
+
+.stories-list__empty,
+.stories-list__error {
+  text-align: center;
+  padding: calc(var(--spacing-unit) * 6) 0;
+  font-size: 1.3rem;
+  color: #888;
+  font-weight: 500;
+}
+
+.story-item {
+  border-radius: var(--border-radius-base);
+  border: 1px solid #E0E0E0;
+  background-color: #ffffff;
+  /* Remove overflow: hidden here to allow content to expand if needed */
+  /* overflow: hidden; */
+  box-shadow: var(--box-shadow-light);
+  transition: transform 0.25s ease-in-out, box-shadow 0.25s ease-in-out;
+  display: flex; /* Added flexbox to column for better content distribution */
+  flex-direction: column; /* Arrange content vertically */
+}
+
+.story-item:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--box-shadow-medium);
+}
+
+/* --- PERUBAHAN UTAMA UNTUK MENGATASI GAMBAR TERPOTONG --- */
+.story-item__image {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: contain;
+  background-color: #f0f0f0;
+  object-position: center;
+}
+/* --- AKHIR PERUBAHAN UTAMA --- */
+
+
+.story-item__body {
+  padding: calc(var(--spacing-unit) * 2.5);
+  display: flex; /* Changed to flex for better control over inner items */
+  flex-direction: column; /* Stack elements vertically */
+  gap: calc(var(--spacing-unit) * 1.5); /* Reduced gap slightly for more space */
+  flex-grow: 1; /* Allow the body to take up available space */
+}
+
+.story-item__title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: var(--spacing-unit);
+  color: #333;
+  line-height: 1.3;
+}
+
+.story-item__more-info {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-unit);
+  color: #666;
+  font-size: 0.9rem;
+  /* Ensure this section doesn't overflow or truncate coordinates */
+  overflow: visible; /* Make sure content isn't hidden */
+}
+
+.story-item__createat,
+.story-item__location,
+.story-item__author {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-unit);
+  flex-wrap: wrap; /* Allow content to wrap if it's too long */
+  word-break: break-word; /* Break long words if necessary */
+}
+
+.story-item__description {
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* Batasi deskripsi menjadi 3 baris */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  font-size: 0.95rem;
+  color: #555;
+  line-height: 1.5;
+  margin-bottom: var(--spacing-unit); /* Add some space before the button */
+}
+
+/* Add a new style for the "Selengkapnya" button within the story item */
+.story-item__details-button {
+  margin-top: auto; /* Push the button to the bottom */
+  width: 100%; /* Make the button full width */
+  text-align: center;
+  padding: 10px 15px; /* Adjust padding as needed */
+  font-size: 0.9rem; /* Adjust font size */
+  border-radius: var(--border-radius-base);
+  background-color: var(--primary-color);
+  color: var(--primary-text-color) !important;
+  text-decoration: none;
+  display: block; /* Make it a block element to take full width */
+  transition: background-color 0.2s ease-in-out;
+}
+
+.story-item__details-button:hover {
+  background-color: var(--primary-hover-color);
+}
+
+
+/* DETAIL PAGE */
+.story-detail__container,
+.story-detail {
+  position: relative;
+  min-height: 80vh;
+}
+
+.story-detail__more-info {
+  margin: calc(var(--spacing-unit) * 4) auto;
+  padding: 0 calc(var(--spacing-unit) * 2);
+  max-width: 900px;
+  display: grid;
+  grid-template-columns: 1fr;
+  justify-items: center;
+  gap: calc(var(--spacing-unit) * 3);
+  font-size: 1.1rem;
+  color: #666;
+}
+
+.story-detail__more-info__inline {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: calc(var(--spacing-unit) * 2) calc(var(--spacing-unit) * 4);
+  width: 100%;
+}
+
+.story-detail__createdat,
+.story-detail__location__place-name,
+.story-detail__location__latitude,
+.story-detail__location__longitude,
+.story-detail__author {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-unit);
+  white-space: nowrap;
+}
+
+.story-detail__createdat::after,
+.story-detail__location__place-name::after,
+.story-detail__location__latitude::after,
+.story-detail__location__longitude::after,
+.story-detail__author::after {
+  content: attr(data-value);
+  color: var(--secondary-text-color);
+  font-weight: 700;
+}
+
+.story-detail__image {
+  margin-top: calc(var(--spacing-unit) * 4);
+  width: 100%;
+  max-height: 500px;
+  border-radius: var(--border-radius-base);
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  box-shadow: var(--box-shadow-medium);
+}
+
+.story-detail__body {
+  margin-block: calc(var(--spacing-unit) * 5);
+  margin-inline: auto;
+  max-width: 800px;
+  padding: 0 calc(var(--spacing-unit) * 2);
+  display: grid;
+  gap: calc(var(--spacing-unit) * 4);
+}
+
+.story-detail__description__title,
+.story-detail__map__title {
+  margin-block-end: calc(var(--spacing-unit) * 2);
+  font-size: 1.6rem;
+  color: var(--primary-color);
+  font-weight: 600;
+}
+
+.story-detail__map__container,
+.story-detail__map {
+  height: 400px; /* Tinggi peta sedikit dikurangi */
+  position: relative;
+}
+
+.story-detail__map__container {
+  background-color: #EAEAEA;
+  border-radius: var(--border-radius-base);
+  overflow: hidden;
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.08); /* Inner shadow untuk peta */
+}
+
+/* NEW STORY FORM PAGE */
+.new-story__header {
+  padding-block: calc(var(--spacing-unit) * 8);
+  background-color: #E8F5E9; /* Warna hijau muda */
+  /* background-image: url('../public/images/subtle-pattern.png'); */
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  text-align: center;
+  border-bottom: 3px solid var(--primary-hover-color);
+}
+
+.new-story__header__title {
+  color: var(--primary-color);
+  font-size: 2.6rem;
+  font-weight: 700;
+}
+
+.new-form__container {
+  max-width: 800px;
+  margin-inline: auto;
+  padding: calc(var(--spacing-unit) * 4) calc(var(--spacing-unit) * 2);
+}
+
+.new-form {
+  border: 1px solid #ddd;
+  border-radius: var(--border-radius-base);
+  padding: calc(var(--spacing-unit) * 5);
+  background-color: #fff;
+  box-shadow: var(--box-shadow-medium);
+}
+
+.new-form > .form-control:not([hidden]) ~ :not([hidden]) {
+  margin-block-start: calc(var(--spacing-unit) * 4);
+}
+
+.new-form .form-control > :not([hidden]) ~ :not([hidden]) {
+  margin-block-start: calc(var(--spacing-unit) * 1.5);
+}
+
+.new-form__image__title,
+.new-form__description__title,
+.new-form__location__title {
+  display: block;
+  font-weight: 600;
+  font-size: 1.05rem;
+  color: #333;
+  margin-bottom: calc(var(--spacing-unit) * 1);
+}
+
+/* NEW IMAGE SECTION */
+.new-form__image__buttons {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-unit) * 1.5;
+}
+
+.new-form__image__input {
+  display: none;
+}
+
+.new-form__camera__container {
+  padding: calc(var(--spacing-unit) * 3);
+  border: 1px solid #ccc;
+  border-radius: var(--border-radius-base);
+  display: none;
+  background-color: #FDFDFD;
+  margin-top: calc(var(--spacing-unit) * 3);
+  box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.03);
+}
+
+.new-form__camera__container.open {
+  display: block;
+}
+
+.new-form__camera__video {
+  width: 100%;
+  border-radius: var(--border-radius-base);
+  display: block;
+  background-color: #333;
+}
+
+.new-form__camera__canvas {
+  display: none;
+}
+
+.new-form__camera__tools {
+  margin-block-start: calc(var(--spacing-unit) * 2);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: calc(var(--spacing-unit) * 2);
+}
+
+.new-form__camera__tools_buttons {
+    display: flex;
+    gap: var(--spacing-unit);
+}
+
+.new-form__image__outputs {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); /* Ukuran preview lebih kecil */
+  justify-content: center;
+  gap: calc(var(--spacing-unit) * 2);
+  margin-top: calc(var(--spacing-unit) * 4);
+}
+
+.new-form__image__outputs-item__delete-btn {
+  appearance: none;
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: none;
+  cursor: pointer;
+  position: relative;
+  border-radius: var(--border-radius-base);
+  overflow: hidden;
+  box-shadow: var(--box-shadow-light);
+}
+
+.new-form__image__outputs-item__delete-btn img {
+  display: block;
+  width: 100%;
+  height: 160px; /* Tinggi gambar pratinjau yang konsisten */
+  object-fit: cover;
+  object-position: center;
+  transition: transform 0.2s ease-in-out;
+}
+
+.new-form__image__outputs-item__delete-btn:hover img {
+  transform: scale(1.1); /* Efek zoom yang lebih kuat */
+}
+
+.new-form__image__outputs-item__delete-btn::after {
+    content: '\2716';
+    position: absolute;
+    top: calc(var(--spacing-unit) / 2);
+    right: var(--spacing-unit);
+    font-size: 1.8rem; /* Ukuran ikon hapus lebih besar */
+    color: white;
+    background-color: rgba(229, 115, 115, 0.85); /* Merah muda dari logout button */
+    border-radius: 50%;
+    width: 40px; /* Ukuran ikon lebih besar */
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.2s ease-in-out;
+}
+
+.new-form__image__outputs-item__delete-btn:hover::after {
+    opacity: 1;
+}
+
+/* NEW LOCATIONS SECTION */
+.new-form__location__map__container {
+  height: 350px; /* Tinggi map sedikit lebih kecil */
+  position: relative;
+  background-color: #EAEAEA;
+  border-radius: var(--border-radius-base);
+  overflow: hidden;
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.08);
+}
+
+.new-form__location__map {
+    height: 100%;
+    width: 100%;
+}
+
+.new-form__location__lat-lng {
+  margin-block-start: calc(var(--spacing-unit) * 2.5);
+  display: flex;
+  flex-wrap: wrap;
+  gap: calc(var(--spacing-unit) * 1.5);
+}
+
+.new-form__location__lat-lng input {
+    flex: 1;
+    min-width: 130px;
+}
+
+/* NOT FOUND PAGE */
+.not-found {
+  text-align: center;
+  padding: calc(var(--spacing-unit) * 10) calc(var(--spacing-unit) * 2);
+  min-height: calc(100vh - 80px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.not-found h2 {
+  font-size: 3.8rem; /* Ukuran judul 404 lebih besar */
+  color: var(--primary-color);
+  margin-bottom: calc(var(--spacing-unit) * 4);
+}
+
+.not-found p {
+  margin-bottom: calc(var(--spacing-unit) * 5);
+  font-size: 1.5rem; /* Ukuran teks lebih besar */
+  color: #666;
+  max-width: 600px;
+}
+
+.not-found a.btn {
+  width: auto;
+  padding-inline: calc(var(--spacing-unit) * 6); /* Padding tombol lebih banyak */
+}
+
+/* MEDIA QUERIES (RESPONSIVE DESIGN) */
+@media screen and (min-width: 601px) {
+  .stories-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media screen and (min-width: 801px) {
+  .stories-list {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .new-form__image__buttons {
+      flex-direction: row;
+      justify-content: center;
+  }
+}
+
+@media screen and (min-width: 1001px) {
+  .stories-list {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .navigation-drawer {
+    min-height: auto;
+    width: auto;
+    padding: 0;
+    background-color: transparent;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    position: static;
+    box-shadow: none;
+    transform: translateX(0);
+  }
+
+  .nav-list {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .nav-list li a,
+  .nav-list li button {
+    padding: 10px 15px;
+    color: var(--primary-text-color);
+    display: inline-flex;
+    border-radius: var(--border-radius-base);
+  }
+
+  .nav-list li a:hover,
+  .nav-list li button:hover {
+    background-color: rgba(255, 255, 255, 0.15);
+    color: var(--primary-text-color);
+    text-shadow: none;
+  }
+
+  .logout-button {
+    color: var(--primary-text-color) !important;
+    background-color: #EF5350; /* Warna merah saat di desktop nav */
+    border: 1px solid #EF5350;
+  }
+
+  .logout-button:hover {
+      background-color: #E53935;
+      border-color: #E53935;
+  }
+
+  .drawer-button {
+    display: none;
+  }
+
+  .main-header {
+      padding-inline: calc(var(--spacing-unit) * 4);
+  }
+}
+
+@media screen and (min-width: 1201px) {
+  .stories-list {
+    grid-template-columns: repeat(5, 1fr); /* Changed to 5 columns for larger screens */
+  }
+}
+@media screen and (min-width: 1401px) {
+  .stories-list {
+    grid-template-columns: repeat(5, 1fr); /* Changed to 5 columns for even larger screens */
+  }
+}
+
+/* SweetAlert2 Custom Styles */
+.swal2-popup {
+    font-family: var(--font-family-base);
+    border-radius: var(--border-radius-base);
+    box-shadow: var(--box-shadow-medium);
+}
+
+.swal2-title {
+    color: var(--primary-color);
+    font-size: 1.8rem;
+    font-weight: 700;
+}
+
+.swal2-html-container {
+    color: var(--secondary-text-color);
+    font-size: 1.1rem;
+}
+
+.swal2-icon.swal2-success [class^=swal2-success-line][class$=-long] {
+    background-color: var(--primary-color);
+}
+
+.swal2-icon.swal2-success [class^=swal2-success-line][class$=-tip] {
+    background-color: var(--primary-color);
+}
+
+.swal2-icon.swal2-success .swal2-success-ring {
+    border-color: var(--primary-color);
+}
+
+.swal2-icon.swal2-error {
+    border-color: #E57373; /* Match logout button color */
+    color: #E57373;
+}
+
+.swal2-styled.swal2-confirm {
+    background-color: var(--primary-color) !important;
+    color: var(--primary-text-color) !important;
+    border-radius: var(--border-radius-base) !important;
+    font-weight: 600 !important;
+    transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out !important;
+}
+
+.swal2-styled.swal2-confirm:focus {
+    box-shadow: 0 0 0 3px var(--primary-shadow-color) !important;
+}
+
+.swal2-styled.swal2-confirm:hover {
+    background-color: var(--primary-hover-color) !important;
+    transform: translateY(-2px);
+}
+
+.swal2-close-button {
+    color: #999;
+}
+
+.swal2-close-button:hover {
+    color: #555;
+}
